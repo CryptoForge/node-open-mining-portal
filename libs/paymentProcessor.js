@@ -313,13 +313,15 @@ function SetupForPool(poolOptions, setupFinished) {
                     }
 
                     var rounds = results[1].map(function (r) {
-                        var details = r.split(':');
-                        return {
-                            blockHash: details[0],
-                            txHash: details[1],
-                            height: details[2],
-                            serialized: r
-                        };
+                        if (r != null) {
+                            var details = r.split(':');
+                            return {
+                                blockHash: details[0],
+                                txHash: details[1],
+                                height: details[2],
+                                serialized: r
+                            };
+                        }
                     });
 
                     logger.debug("Prepared info basic info about payments");
