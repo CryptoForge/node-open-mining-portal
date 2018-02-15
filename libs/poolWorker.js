@@ -138,50 +138,19 @@ module.exports = function (logger) {
 
             var shareProcessor = new ShareProcessor(logger, poolOptions);
 
-            handlers.auth = function (port, workerName, password, authCallback) {
-                if (!poolOptions.validateWorkerUsername) {
+            handlers.auth = function(port, workerName, password, authCallback){
+                if (poolOptions.validateWorkerUsername !== true)
                     authCallback(true);
-                }
                 else {
-                    try {
-                        // tests address.worker syntax
-                        let re = /^(?:[a-zA-Z0-9]+\.)*[a-zA-Z0-9]+$/;
-                        if (re.test(workerName)) {
-                            // not valid input, does not respect address.worker scheme. Acceptable chars a a-Z and 0-9
-                            //todo log
-                            if (workerName.indexOf('.') !== -1) {
-                                //have worker
-                                let tmp = workerName.split('.');
-                                if (tmp.length !== 2) {
-                                    authCallback(false);
-                                } else {
-                                    pool.daemon.cmd('validateaddress', [tmp[0]], function (results) {
-                                        var isValid = results.filter(function (r) {
-                                            return r.response.isvalid
-                                        }).length > 0;
-                                        authCallback(isValid);
-                                    });
-                                }
-                            } else {
-                                //only address
-                                pool.daemon.cmd('validateaddress', [workerName], function (results) {
-                                    var isValid = results.filter(function (r) {
-                                        return r.response.isvalid
-                                    }).length > 0;
-                                    authCallback(isValid);
-                                });
-                            }
-                        } else {
-                            authCallback(false);
-                        }
+                        pool.daemon.cmd('validateaddress', [String(workerName).split(".")[0]], function (results) {
+                            var isValid = results.filter(function (r) {
+                                return r.response.isvalid
+                            }).length > 0;
+                            authCallback(isValid);
+                        });
                     }
-                    catch (e) {
-                        authCallback(false);
-                    }
-
-                }
             };
-
+              
             handlers.share = function (isValidShare, isValidBlock, data) {
                 shareProcessor.handleShare(isValidShare, isValidBlock, data);
             };
