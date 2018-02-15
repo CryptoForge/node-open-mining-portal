@@ -45,7 +45,6 @@ function SetupForPool(logger, poolOptions, setupFinished){
     var coin = poolOptions.coin.name;
     var processingConfig = poolOptions.paymentProcessing;
 
-<<<<<<< HEAD
     var logSystem = 'Payments';
     var logComponent = coin;
 
@@ -84,7 +83,7 @@ function SetupForPool(logger, poolOptions, setupFinished){
     var daemon = new Stratum.daemon.interface([processingConfig.daemon], function(severity, message){
         logger[severity](logSystem, logComponent, message);
     });
-=======
+
     // pplnt - pay per last N time shares
     var pplntEnabled = processingConfig.paymentMode === "pplnt" || false;
     var pplntTimeQualify = processingConfig.pplnt || 0.51; // 51%
@@ -95,7 +94,6 @@ function SetupForPool(logger, poolOptions, setupFinished){
     // TODO fix logger, broken intentionally, wil fix after final migration to winston
     var daemon = new Stratum.daemon.interface([processingConfig.daemon], undefined);
 
->>>>>>> aec41169139d6d481dfc3c8611b60a575eaebe3e
     var redisClient = redis.createClient(poolOptions.redis.port, poolOptions.redis.host);
     // redis auth if enabled
     if (poolOptions.redis.password) {
@@ -561,7 +559,7 @@ function SetupForPool(logger, poolOptions, setupFinished){
         return roundTo((satoshis / magnitude), coinPrecision);
     };
 
-<<<<<<< HEAD
+
     var coinsToSatoshies = function(coins){
         return Math.round(coins * magnitude);
     };
@@ -579,7 +577,7 @@ function SetupForPool(logger, poolOptions, setupFinished){
         return count > 1;
     }
     
-=======
+
     function cacheMarketStats() {
         
         var marketStatsUpdate = [];
@@ -692,7 +690,6 @@ function SetupForPool(logger, poolOptions, setupFinished){
     }
     
     
->>>>>>> aec41169139d6d481dfc3c8611b60a575eaebe3e
     /* Deal with numbers in smallest possible units (satoshis) as much as possible. This greatly helps with accuracy
        when rounding and whatnot. When we are storing numbers for only humans to see, store in whole coin units. */
 
@@ -734,7 +731,7 @@ function SetupForPool(logger, poolOptions, setupFinished){
                     for (var w in results[0]){
                         workers[w] = {balance: coinsToSatoshies(parseFloat(results[0][w]))};
                     }
-<<<<<<< HEAD
+
                     // build rounds object from :blocksPending
                     var rounds = results[1].map(function(r){
                         var details = r.split(':');
@@ -747,7 +744,7 @@ function SetupForPool(logger, poolOptions, setupFinished){
                             duplicate: false,
                             serialized: r
                         };
-=======
+
 
                     var rounds = results[1].map(function (r) {
                         if (r != null) {
@@ -759,7 +756,7 @@ function SetupForPool(logger, poolOptions, setupFinished){
                                 serialized: r
                             };
                         }
->>>>>>> aec41169139d6d481dfc3c8611b60a575eaebe3e
+
                     });
                     /* sort rounds by block hieght to pay in order */
                     rounds.sort(function(a, b) {
@@ -1554,8 +1551,5 @@ function SetupForPool(logger, poolOptions, setupFinished){
         return address;
     };
 
-<<<<<<< HEAD
-=======
 
->>>>>>> aec41169139d6d481dfc3c8611b60a575eaebe3e
 }
