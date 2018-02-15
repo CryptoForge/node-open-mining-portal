@@ -67,7 +67,7 @@ function getReadableHashRateString(hashrate){
         hashrate = hashrate / 1000;
         i++;
     } while (hashrate > 1000);
-    return Math.round(hashrate) + byteUnits[i];
+    return hashrate.toFixed(2) + byteUnits[i];
 }
 
 function timeOfDayFormat(timestamp){
