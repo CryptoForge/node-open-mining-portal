@@ -12,7 +12,8 @@ var totalShares;
 
 function getReadableHashRateString(hashrate){
     var i = -1;
-    var byteUnits = [ ' KH', ' MH', ' GH', ' TH', ' PH' ];
+    var byteUnits = [ ' H', ' KH', ' MH', ' GH', ' TH', ' PH' ];
+    hashrate=hashrate*1000
     do {
         hashrate = hashrate / 1000;
         i++;
@@ -148,7 +149,7 @@ function updateStats() {
 	totalImmature = statData.immature;
 	totalShares = statData.totalShares;
 	// do some calculations
-	var _blocktime = 250;
+	var _blocktime = 150;
 	var _networkHashRate = parseFloat(statData.networkSols);
 	var _myHashRate = totalHash;
 	var luckDays =  ((_networkHashRate / _myHashRate * _blocktime) / (24 * 60 * 60)).toFixed(3);
