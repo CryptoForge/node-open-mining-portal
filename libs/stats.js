@@ -760,7 +760,7 @@ module.exports = function(logger, portalConfig, poolConfigs){
         return hashrate.toFixed(2) + byteUnits[i];
     };
     
-    this.getReadableNetworkHashRateString = function(hashrate){
+    function getReadableNetworkHashRateString(hashrate){
         var i = -1;
         var byteUnits = [ ' KH', ' MH', ' GH', ' TH', ' PH' ];
         do {
@@ -768,6 +768,6 @@ module.exports = function(logger, portalConfig, poolConfigs){
 			i++;
         } while (hashrate > 1000);
         return hashrate.toFixed(2) + byteUnits[i];
-    };
+    }
 	
 };
