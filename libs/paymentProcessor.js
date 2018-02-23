@@ -1161,7 +1161,7 @@ function SetupForPool(logger, poolOptions, setupFinished){
                     var rpccallTracking = 'sendmany "" '+JSON.stringify(addressAmounts);
                     //console.log(rpccallTracking);
 
-                    daemon.cmd('sendmany', ["", addressAmounts], function (result) {
+                    daemon.cmd('sendmany', [addressAccount || "", addressAmounts], function (result) {
                         // check for failed payments, there are many reasons
                         if (result.error && result.error.code === -6) {
                             // check if it is because we don't have enough funds
