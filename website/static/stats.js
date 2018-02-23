@@ -62,7 +62,7 @@ function calculateAverageHashrate(pool) {
 
 function getReadableHashRateString(hashrate){
     var i = -1;
-    var byteUnits = [ ' H', ' KH', ' MH', ' GH', ' TH', ' PH' ];
+    var byteUnits = [ ' H/s', ' KH/s', ' MH/s', ' GH/s', ' TH/s', ' PH/s' ];
     hashrate=hashrate*1000
     do {
         hashrate = hashrate / 1000;
